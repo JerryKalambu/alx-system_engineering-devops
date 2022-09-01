@@ -16,5 +16,5 @@ task 13. Change group
 task 14. Owner and groupe
 task 15. Symbolic links
 task 16. If only
-task 17. Start Wars
+task 17. Star Wars
 
