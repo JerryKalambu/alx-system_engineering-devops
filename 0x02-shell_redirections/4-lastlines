@@ -1,2 +1,2 @@
 #!/bin/bash
-tall -n 10 /ect/passwd
+tail -n 10 /ect/passwd
