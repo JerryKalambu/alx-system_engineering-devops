@@ -1,2 +1,2 @@
 #!/bi/bash
-ls -t | head
+find . -type d -not -name '-' | wc -l
