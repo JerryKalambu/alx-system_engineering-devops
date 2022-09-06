@@ -1,2 +1,2 @@
 #!/bi/bash
-ls -t | head
+ls -lRa
