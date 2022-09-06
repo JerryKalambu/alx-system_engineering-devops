@@ -1,0 +1,2 @@
+#!/bi/bash
+ls -t | head
