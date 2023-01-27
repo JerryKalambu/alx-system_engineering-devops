@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Uses pkill to bypass trap and kill the process created by 7-highlander
+pkill -SIGKILL -f ./7-highlander

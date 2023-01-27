@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Creates a file containing its PID, displays message indefinitely
+# traps SIGTERM/SIGINT and displays specific messages
+# traps SIGTERM/SIGQUIT to remove file before terminating
+
+echo $$ > /var/run/holbertonscript.pid
+while true
+do
+    echo "To infinity and beyond"
+    trap "echo \"I hate the kill command\" & rm /var/run/holbertonscript.pid & exit" SIGTERM
+    trap "echo \"Y U no love me?!\" & exit" SIGINT
+    trap "rm /var/run/holbertonscript.pid & exit" SIGQUIT
+done
