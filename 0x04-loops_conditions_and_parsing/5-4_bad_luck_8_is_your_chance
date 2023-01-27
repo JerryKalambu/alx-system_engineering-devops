@@ -9,7 +9,7 @@ do
     elif [ "$i" -eq 8 ]; then
 	echo "good luck"
     else
-	echo "Kings School"
+	echo "Best School"
     fi
     (( i++ ))
 done

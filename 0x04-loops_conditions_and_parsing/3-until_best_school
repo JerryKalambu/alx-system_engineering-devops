@@ -4,6 +4,6 @@
 i=0
 until (( i == 10 ))
 do
-    echo "Kings School";
+    echo "Best School";
     (( i++ ));
 done
