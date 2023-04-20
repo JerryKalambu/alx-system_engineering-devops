@@ -1,0 +1,30 @@
+# This Puppet script installs nginx web server and sets up a redirect from /redirect_me to a github profile
+
+# Install the nginx package if it's not already installed
+package {'nginx':
+  ensure => 'present',
+}
+
+# Run the command to update the system and install nginx
+exec {'install':
+  command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
+  provider => shell,
+}
+
+# Create a basic HTML file to verify that nginx is working
+exec {'Hello':
+  command  => 'echo "Hello World!" | sudo tee /var/www/html/index.html',
+  provider => shell,
+}
+
+# Configure nginx to redirect /redirect_me to a specific website
+exec {'redirect':
+  command  => 'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/https://github.com/JerryKalambu\/;\\n\\t}/" /etc/nginx/sites-available/default',
+  provider => shell,
+}
+
+# Restart nginx to apply the changes
+exec {'restart':
+  command  => 'sudo service nginx restart',
+  provider => shell,
+}
