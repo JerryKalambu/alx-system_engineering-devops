@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Installs nginx server on an ubuntu linux distro.
-sudo apt-get update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
 
+# Installs nginx server
+# made executable
+apt-get update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
 echo "Hello World!" > /var/www/html/index.html
-
-service systemctl start nginx
+service nginx start
