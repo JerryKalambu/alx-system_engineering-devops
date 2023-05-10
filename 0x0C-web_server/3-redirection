@@ -1,17 +1,40 @@
 #!/usr/bin/env bash
-# A script that Configures Nginx to redirect requests
+# Configures a new ubuntu machine by installing
+# Nginx where it should be listening on port 80
+# Serve a page that would return a Hello World string
+#
+# colors
+blue='\e[1;34m'
+brown='\e[0;33m'
+green='\e[1;32m'
+reset='\033[0m'
 
-# Update package lists
-sudo apt-get update
+echo -e "${blue}Updating and installing ${brown}Nginx${blue}.${reset}\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
 
-# Install Nginx
-sudo apt-get install -y nginx
+echo -e "\n${blue}Setting up some minor stuff.${reset}\n"
 
-# Configure Nginx to redirect requests
-sudo sed -i '/server_name _;/a \\n    location /redirect_me {\n        return 301 http://example.com/newpage;\n    }' /etc/nginx/sites-available/default
+# starting nginx service
+sudo service nginx start
 
-# Test Nginx configuration
-sudo nginx -t
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Reload Nginx to apply changes
-sudo service nginx reload
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating new index
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Setting up /redirect_me to a youtube video
+sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\n${green}Completed.${reset} ✅\n"
