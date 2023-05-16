@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
-# Script that configures a new Ubuntu machine to respect above requirements
+# A script that Configures Nginx to redirect requests
 
+# Update package lists
 sudo apt-get update
+
+# Install Nginx
 sudo apt-get install -y nginx
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.jerrykalambu.tech permanent;"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+# Configure Nginx to redirect requests
+sudo sed -i '/server_name _;/a \\n    location /redirect_me {\n        return 301 http://example.com/newpage;\n    }' /etc/nginx/sites-available/default
 
-sudo service nginx restart
+# Test Nginx configuration
+sudo nginx -t
+
+# Reload Nginx to apply changes
+sudo service nginx reload
